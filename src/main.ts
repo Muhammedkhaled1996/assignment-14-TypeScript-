@@ -1,111 +1,215 @@
-// // // class Person {
-// // //   static count: number = 0;
+// // // // // // class Person {
+// // // // // //   static count: number = 0;
 
-// // //   public get password(): string {
-// // //     return this._password;
-// // //   }
-// // //   public set password(value: string) {
-// // //     this._password = value;
-// // //   }
+// // // // // //   public get password(): string {
+// // // // // //     return this._password;
+// // // // // //   }
+// // // // // //   public set password(value: string) {
+// // // // // //     this._password = value;
+// // // // // //   }
 
+// // // // // //   constructor(
+// // // // // //     public name: string,
+// // // // // //     public age: number,
+// // // // // //     protected card: number,
+// // // // // //     private _password: string,
+// // // // // //   ) {}
+// // // // // // }
+
+// // // // // // class User extends Person {
+// // // // // //   constructor(
+// // // // // //     name: string,
+// // // // // //     age: number,
+// // // // // //     card: number,
+// // // // // //     _password: string,
+// // // // // //     public mail: string,
+// // // // // //   ) {
+// // // // // //     super(name, age, card, _password);
+// // // // // //     Person.count++;
+// // // // // //   }
+// // // // // // }
+
+// // // // // // const user = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
+// // // // // // console.log(User.count);
+// // // // // // const user2 = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
+// // // // // // console.log(User.count);
+
+// // // // // class Clinic {
+// // // // //   constructor(
+// // // // //     public name: string,
+// // // // //     public location: string,
+// // // // //   ) {}
+// // // // // }
+
+// // // // // class Doctor {
+// // // // //   constructor(
+// // // // //     public name: string,
+// // // // //     public clinic: Clinic,
+// // // // //   ) {}
+// // // // // }
+
+// // // // // const clinic = new Clinic("maadi" , "asdasdasd")
+// // // // // const doctor = new Doctor("muhammed" , clinic)
+
+// // // // // console.log({doctor});
+
+// // // // class Employee {
+// // // //   constructor(
+// // // //     public name: string,
+// // // //     public age: number,
+// // // //   ) {}
+// // // // }
+
+// // // // class Department {
+// // // //   private depts: { id: number; name: string; employees: Employee[] }[] = [];
+// // // //   public id: number;
+// // // //   constructor(
+// // // //     public name: string,
+// // // //     public employees: Employee[],
+// // // //   ) {
+// // // //     this.id = Date.now();
+// // // //     this.depts.push({ name, employees, id: this.id });
+// // // //   }
+
+// // // //   remove(id: number) {
+// // // //     this.depts.filter((ele) => ele.id != id);
+// // // //   }
+// // // // }
+
+// // // // const employee = new Employee("muhammed", 30);
+// // // // const employee2 = new Employee("yassen", 20);
+
+// // // // const department = new Department("it", [employee, employee2]);
+
+// // // // console.log(department);
+// // // // console.log(department.remove(Date.now()));
+
+// // // class Room {
 // // //   constructor(
 // // //     public name: string,
-// // //     public age: number,
-// // //     protected card: number,
-// // //     private _password: string,
+// // //     public space: number,
 // // //   ) {}
 // // // }
 
-// // // class User extends Person {
+// // // class Home {
+// // //   private rooms: Room[] = [];
 // // //   constructor(
-// // //     name: string,
-// // //     age: number,
-// // //     card: number,
-// // //     _password: string,
-// // //     public mail: string,
-// // //   ) {
-// // //     super(name, age, card, _password);
-// // //     Person.count++;
+// // //     public name: string,
+// // //     public location: string,
+// // //   ) {}
+
+// // //   addRoom(roomName: string, roomSpace: number) {
+// // //     const room = new Room("room1", 20);
+// // //     this.rooms.push(room);
 // // //   }
 // // // }
 
-// // // const user = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
-// // // console.log(User.count);
-// // // const user2 = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
-// // // console.log(User.count);
+// // // const route = new Home("toute", "cairo");
 
-// // class Clinic {
-// //   constructor(
-// //     public name: string,
-// //     public location: string,
-// //   ) {}
+// // // route.addRoom("node", 20);
+
+// // // console.log(route);
+
+// // interface IPerson {
+// //   name: string;
+// //   age: number;
+// //   gender: string;
+// //   profile(): string;
 // // }
 
-// // class Doctor {
+// // class Person implements Partial<IPerson> {
 // //   constructor(
 // //     public name: string,
-// //     public clinic: Clinic,
+// //     public age: number,
 // //   ) {}
+
+// //   profile() {
+// //     return `Hello ${this.name}`;
+// //   }
 // // }
 
-// // const clinic = new Clinic("maadi" , "asdasdasd")
-// // const doctor = new Doctor("muhammed" , clinic)
+// // class Doctor extends Person {
+// //   constructor(
+// //     name: string,
+// //     age: number,
+// //     public major: string,
+// //   ) {
+// //     super(name, age);
+// //   }
 
-// // console.log({doctor});
+// //   override profile() {
+// //     return `Hello ${this.name}`;
+// //   }
 
-// class Employee {
-//   constructor(
-//     public name: string,
-//     public age: number,
-//   ) {}
-// }
+// //   makeSurgery() {
+// //     return `Doctor ${this.name} do ${this.major}`;
+// //   }
+// // }
 
-// class Department {
-//   private depts: { id: number; name: string; employees: Employee[] }[] = [];
-//   public id: number;
-//   constructor(
-//     public name: string,
-//     public employees: Employee[],
-//   ) {
-//     this.id = Date.now();
-//     this.depts.push({ name, employees, id: this.id });
+// // const doctor = new Doctor("ahmeed", 11, "heart");
+
+// // console.log(doctor.profile());
+// // console.log(doctor.makeSurgery());
+
+// abstract class DBReposatory {
+//   constructor(protected model: string) {}
+
+//   create() {
+//     return `create`;
 //   }
 
-//   remove(id: number) {
-//     this.depts.filter((ele) => ele.id != id);
+//   findOne() {
+//     return `done`;
 //   }
 // }
 
-// const employee = new Employee("muhammed", 30);
-// const employee2 = new Employee("yassen", 20);
+// class UserDBReposatory extends DBReposatory {
+//   constructor() {
+//     super("User");
+//   }
 
-// const department = new Department("it", [employee, employee2]);
+//   findOrCreateUser() {
+//     this.findOne();
+//     this.create();
+//   }
+// }
 
-// console.log(department);
-// console.log(department.remove(Date.now()));
+// class ProductDBReposatory extends DBReposatory {
+//   constructor() {
+//     super("Product");
+//   }
 
-class Room {
-  constructor(
-    public name: string,
-    public space: number,
-  ) {}
-}
+//   findOrCreateProduct() {
+//     this.findOne();
+//     this.create();
+//   }
+// }
 
-class Home {
-  private rooms: Room[] = [];
-  constructor(
-    public name: string,
-    public location: string,
-  ) {}
+// class UserService {
+//   private model: UserDBReposatory;
 
-  addRoom(roomName: string, roomSpace: number) {
-    const room = new Room("room1", 20);
-    this.rooms.push(room);
-  }
-}
+//   constructor(model: string) {
+//     this.model = new UserDBReposatory();
+//   }
 
-const route = new Home("toute", "cairo");
+//   signup() {
+//     this.model.findOne();
+//     this.model.create();
+//   }
+// }
 
-route.addRoom("node", 20);
+// class ProductService {
+//   private model: ProductDBReposatory;
 
-console.log(route);
+//   constructor() {
+//     this.model = new ProductDBReposatory();
+//   }
+
+//   signup() {
+//     this.model.findOne();
+//     this.model.create();
+//   }
+// }
+
+
+
