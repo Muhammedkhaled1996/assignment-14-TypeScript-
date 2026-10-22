@@ -1,0 +1,16 @@
+{
+  "name": "assignment-14(typescript)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "concurrently -k \"tsc --watch\" \"node --watch dist/main.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
