@@ -1,215 +1,151 @@
-// // // // // // class Person {
-// // // // // //   static count: number = 0;
+// Solve Assignment 14 TypeScript
 
-// // // // // //   public get password(): string {
-// // // // // //     return this._password;
-// // // // // //   }
-// // // // // //   public set password(value: string) {
-// // // // // //     this._password = value;
-// // // // // //   }
+// 1 - Base Class
 
-// // // // // //   constructor(
-// // // // // //     public name: string,
-// // // // // //     public age: number,
-// // // // // //     protected card: number,
-// // // // // //     private _password: string,
-// // // // // //   ) {}
-// // // // // // }
+class User {
+  private id: number;
+  public noteBooks: NoteBook[] = [];
+  constructor(
+    public name: string,
+    public email: string,
+    private password: string,
+    private phone: string,
+    public age: number,
+  ) {
+    this.id = Date.now();
+  }
 
-// // // // // // class User extends Person {
-// // // // // //   constructor(
-// // // // // //     name: string,
-// // // // // //     age: number,
-// // // // // //     card: number,
-// // // // // //     _password: string,
-// // // // // //     public mail: string,
-// // // // // //   ) {
-// // // // // //     super(name, age, card, _password);
-// // // // // //     Person.count++;
-// // // // // //   }
-// // // // // // }
+  displayInfo() {
+    return new User(this.name, this.email, this.password, this.phone, this.age);
+  }
 
-// // // // // // const user = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
-// // // // // // console.log(User.count);
-// // // // // // const user2 = new User("muhammed", 23, 12312312, "123213", "asdasdasd");
-// // // // // // console.log(User.count);
+  addNoteBook(noteBook: NoteBook): void {
+    this.noteBooks.push(noteBook);
+  }
 
-// // // // // class Clinic {
-// // // // //   constructor(
-// // // // //     public name: string,
-// // // // //     public location: string,
-// // // // //   ) {}
-// // // // // }
+  removeNoteBook(title: string): void {
+    this.noteBooks = this.noteBooks.filter((ele) => ele.title !== title);
+  }
+}
 
-// // // // // class Doctor {
-// // // // //   constructor(
-// // // // //     public name: string,
-// // // // //     public clinic: Clinic,
-// // // // //   ) {}
-// // // // // }
+const user = new User("muhammed", "muhammed@gmail.com", "123", "3123123", 30);
 
-// // // // // const clinic = new Clinic("maadi" , "asdasdasd")
-// // // // // const doctor = new Doctor("muhammed" , clinic)
+console.log(user.displayInfo());
 
-// // // // // console.log({doctor});
+// 2 - inhertance - Admin User
 
-// // // // class Employee {
-// // // //   constructor(
-// // // //     public name: string,
-// // // //     public age: number,
-// // // //   ) {}
-// // // // }
+class Admin extends User {
+  constructor(
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    age: number,
+    public method: string,
+  ) {
+    super(name, email, password, phone, age);
+  }
+}
 
-// // // // class Department {
-// // // //   private depts: { id: number; name: string; employees: Employee[] }[] = [];
-// // // //   public id: number;
-// // // //   constructor(
-// // // //     public name: string,
-// // // //     public employees: Employee[],
-// // // //   ) {
-// // // //     this.id = Date.now();
-// // // //     this.depts.push({ name, employees, id: this.id });
-// // // //   }
+const admin = new Admin("muhammed", "asdasd@adas", "123", "00123123", 30, "Super");
 
-// // // //   remove(id: number) {
-// // // //     this.depts.filter((ele) => ele.id != id);
-// // // //   }
-// // // // }
+console.log(admin);
 
-// // // // const employee = new Employee("muhammed", 30);
-// // // // const employee2 = new Employee("yassen", 20);
+// 3- Class Note
 
-// // // // const department = new Department("it", [employee, employee2]);
+class Note {
+  private id: number;
+  constructor(
+    public title: string,
+    public content: string,
+    public author: User,
+  ) {
+    this.id = Date.now();
+  }
 
-// // // // console.log(department);
-// // // // console.log(department.remove(Date.now()));
+  public get noteId() {
+    return this.id;
+  }
 
-// // // class Room {
-// // //   constructor(
-// // //     public name: string,
-// // //     public space: number,
-// // //   ) {}
-// // // }
+  perview() {
+    return `note title <<<< ${this.title} >>>> with content <<<< ${this.content} >>>> published by :${this.author.name}`;
+  }
+}
 
-// // // class Home {
-// // //   private rooms: Room[] = [];
-// // //   constructor(
-// // //     public name: string,
-// // //     public location: string,
-// // //   ) {}
+const user2 = new User("muhammed", "213123", "123", "123213", 30);
 
-// // //   addRoom(roomName: string, roomSpace: number) {
-// // //     const room = new Room("room1", 20);
-// // //     this.rooms.push(room);
-// // //   }
-// // // }
+const note = new Note("hello", "1231adadasdasda", user2);
 
-// // // const route = new Home("toute", "cairo");
+console.log(note.perview());
 
-// // // route.addRoom("node", 20);
+//4- composition - NoteBook and Notes
 
-// // // console.log(route);
+class NoteBook {
+  public notes: Note[] = [];
+  constructor(
+    public title: string,
+    public content: string,
+    public userId: User,
+  ) {}
 
-// // interface IPerson {
-// //   name: string;
-// //   age: number;
-// //   gender: string;
-// //   profile(): string;
-// // }
+  addNote(title: string, content: string): Note[] {
+    const note = new Note(title, content, this.userId);
+    this.notes.push(note);
+    return this.notes;
+  }
 
-// // class Person implements Partial<IPerson> {
-// //   constructor(
-// //     public name: string,
-// //     public age: number,
-// //   ) {}
+  RemoveNote(noteId: number): Note[] {
+    this.notes = this.notes.filter((note) => note.noteId !== noteId);
+    return this.notes;
+  }
+}
 
-// //   profile() {
-// //     return `Hello ${this.name}`;
-// //   }
-// // }
+const noteBook = new NoteBook("hello", "asdasdasd", user2);
 
-// // class Doctor extends Person {
-// //   constructor(
-// //     name: string,
-// //     age: number,
-// //     public major: string,
-// //   ) {
-// //     super(name, age);
-// //   }
+console.log(noteBook.addNote("Note 1", "Content 1"));
+console.log(noteBook.addNote("Note 2", "Content 2"));
+console.log(noteBook.RemoveNote(Date.now()));
 
-// //   override profile() {
-// //     return `Hello ${this.name}`;
-// //   }
+// 5- Aggregation - User and NoteBook >>>>>  solution in User class
 
-// //   makeSurgery() {
-// //     return `Doctor ${this.name} do ${this.major}`;
-// //   }
-// // }
+const noteBook2 = new NoteBook("adsd", "123ASDASD", user2);
+user.addNoteBook(noteBook);
+user.addNoteBook(noteBook);
 
-// // const doctor = new Doctor("ahmeed", 11, "heart");
+console.log(user.noteBooks);
 
-// // console.log(doctor.profile());
-// // console.log(doctor.makeSurgery());
+// 6- Association - Note and User >>> solution in Note class
 
-// abstract class DBReposatory {
-//   constructor(protected model: string) {}
+console.log(note);
 
-//   create() {
-//     return `create`;
-//   }
+// 7- Generic - Data Storage
 
-//   findOne() {
-//     return `done`;
-//   }
-// }
+class Storage<T> {
+  private items: T[] = [];
+  constructor() {}
 
-// class UserDBReposatory extends DBReposatory {
-//   constructor() {
-//     super("User");
-//   }
+  addItem(item: T): void {
+    this.items.push(item);
+  }
 
-//   findOrCreateUser() {
-//     this.findOne();
-//     this.create();
-//   }
-// }
+  removeItem(item: T): void {
+    this.items = this.items.filter((currentItem) => currentItem !== item);
+  }
 
-// class ProductDBReposatory extends DBReposatory {
-//   constructor() {
-//     super("Product");
-//   }
+  getAllItems(): T[] {
+    return this.items;
+  }
+}
 
-//   findOrCreateProduct() {
-//     this.findOne();
-//     this.create();
-//   }
-// }
+const storage = new Storage();
 
-// class UserService {
-//   private model: UserDBReposatory;
+storage.addItem(1);
+storage.addItem(3);
+storage.addItem("s");
+storage.addItem(5);
+storage.addItem("zxc");
+storage.addItem(true);
 
-//   constructor(model: string) {
-//     this.model = new UserDBReposatory();
-//   }
-
-//   signup() {
-//     this.model.findOne();
-//     this.model.create();
-//   }
-// }
-
-// class ProductService {
-//   private model: ProductDBReposatory;
-
-//   constructor() {
-//     this.model = new ProductDBReposatory();
-//   }
-
-//   signup() {
-//     this.model.findOne();
-//     this.model.create();
-//   }
-// }
-
-
-
+console.log(storage.getAllItems());
+storage.removeItem(3);
+console.log(storage.getAllItems());
